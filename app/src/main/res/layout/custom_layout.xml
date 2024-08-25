@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:background="@color/white"
+    android:layout_marginTop="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:baselineAligned="false"
+        android:background="@color/buttonBackground"
+        android:padding="5dp">
+
+        <FrameLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/itemImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/document"
+                android:contentDescription="@string/product_image_description" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/nameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item_name"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+<!--                <CheckBox-->
+<!--                    android:id="@+id/checkbox"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:textColor="@color/black" />-->
+
+                <ImageView
+                    android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/checkbox"/>
+
+                <TextView
+                    android:id="@+id/purchasedItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Purchased"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@color/secondaryColor"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/productDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:alpha="0.6"
+                android:text="@string/product_description_product_description_product_description" />
+
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="@string/price_9_99"  />
+
+            <LinearLayout
+                android:id="@+id/hiddenLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/deleteItem"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/remove"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@string/product_image_description" />
+
+                <ImageView
+                    android:id="@+id/editItem"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/edit"
+                    android:contentDescription="@string/product_image_description" />
+
+                <ImageView
+                    android:id="@+id/findInMap"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/locate"
+                    android:contentDescription="@string/product_image_description" />
+
+                <ImageView
+                    android:id="@+id/shareItem"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/share"
+                    android:contentDescription="@string/product_image_description" />
+
+                <ImageView
+                    android:id="@+id/messageItem"
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:src="@drawable/message"
+                    android:layout_marginLeft="10dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
+
+

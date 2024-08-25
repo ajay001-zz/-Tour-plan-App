@@ -1,0 +1,255 @@
+package com.ajay.suitcase;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.util.Objects;
+
+public class LoginActivity extends AppCompatActivity {
+
+
+    TextInputLayout emailTextInputLayout, passwordTextInputLayout;
+    TextInputEditText emailTextInput, passwordTextInput;
+    LinearLayout googleSignin;
+    TextView forgetPassword;
+    Button loginButton;
+    ProgressBar divider;
+    FirebaseAuth mAuth;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in or not
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        TextView forgetPassword = findViewById(R.id.forgetPassword);
+
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showForgotPasswordDialog();
+            }
+        });
+
+        TextView registerNowTextView = findViewById(R.id.registerNow);
+
+        // Set a click listener for the "Register Now" TextView
+        registerNowTextView.setOnClickListener(view -> {
+            // Start the RegistrationActivity when the TextView is clicked
+            Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+            startActivity(intent);
+        });
+        // taking FirebaseAuth instance
+        mAuth = FirebaseAuth.getInstance();
+
+        // initialising all views through id defined above
+        emailTextInputLayout = findViewById(R.id.email);
+        passwordTextInputLayout = findViewById(R.id.password);
+        emailTextInput = findViewById(R.id.emailInput);
+        passwordTextInput = findViewById(R.id.passwoedInput);
+        loginButton = findViewById(R.id.loginButton);
+        divider = findViewById(R.id.divider);
+
+        googleSignin = findViewById(R.id.googleSignin);
+
+
+        // Set on Click Listener on Registration button
+        loginButton.setOnClickListener(v -> loginUserAccount());
+        //forgetPassword.setOnClickListener(v -> showForgotPasswordDialog());
+
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showForgotPasswordDialog();
+            }
+        });
+
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("858089216918-nfu5820clt3gfd2g1l3811khgnjtsopt.apps.googleusercontent.com").requestEmail().build();
+        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+
+        googleSignin.setOnClickListener(v -> {
+            // Sign out of Google first (clear cached credentials)
+            googleSignInClient.signOut().addOnCompleteListener(LoginActivity.this, task -> {
+                if (task.isSuccessful()) {
+                    // Sign-out successful, now start the Google Sign-In intent
+                    Intent intent = googleSignInClient.getSignInIntent();
+                    startActivityForResult(intent, 100);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Google signin failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        //check condition
+        if(firebaseUser!= null){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
+
+    }
+        private void loginUserAccount()
+        {
+            // Take the value of two edit texts in Strings
+            String email, password;
+            email = Objects.requireNonNull(emailTextInput.getText()).toString();
+            password = Objects.requireNonNull(passwordTextInput.getText()).toString();
+
+            // validations for input email and password
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(getApplicationContext(),
+                                "Please enter email!!",
+                                Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(getApplicationContext(),
+                                "Please enter password!!",
+                                Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
+            // signin existing user
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(
+                            task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(),
+                                                    "Login successful!!",
+                                                    Toast.LENGTH_LONG)
+                                            .show();
+
+
+                                    // if sign-in is successful
+                                    // intent to home activity
+                                    Intent intent
+                                            = new Intent(LoginActivity.this,
+                                            MainActivity.class);
+                                    startActivity(intent);
+                                } else {
+
+                                    // sign-in failed
+                                    Toast.makeText(getApplicationContext(),
+                                                    "Email or Password doesn't match!!",
+                                                    Toast.LENGTH_LONG)
+                                            .show();
+
+                                }
+                            });
+        }
+
+    private void showForgotPasswordDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.forget_password, null);
+        //View view = getLayoutInflater().inflate(R.layout.forget_password,null);
+        builder.setView(view);
+        builder.setTitle("Reset Password");
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        TextInputEditText emailEditText = view.findViewById(R.id.forgotPasswordReset);
+        Button resetButton = view.findViewById(R.id.resetPassword);
+
+        resetButton.setOnClickListener(v -> {
+            String email = emailEditText.getText().toString().trim();
+
+            if (TextUtils.isEmpty(email)) {
+                emailEditText.setError("Enter your email");
+                return;
+            }
+
+            divider.setVisibility(View.VISIBLE);
+            mAuth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(task -> {
+                        divider.setVisibility(View.GONE);
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, "Password reset email sent", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(this, "Failed to send reset email", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
+        dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Check condition
+        if (requestCode == 100) {
+            // When request code is equal to 100 initialize task
+            Task<GoogleSignInAccount> signInAccountTask = GoogleSignIn.getSignedInAccountFromIntent(data);
+            // check condition
+            if (signInAccountTask.isSuccessful()) {
+                // When google sign in is successful, display a success message
+                String successMessage = "Google sign in successful!";
+                Toast.makeText(getApplicationContext(), successMessage, Toast.LENGTH_SHORT).show();
+
+                // Initialize sign in account
+                try {
+                    // Initialize sign in account
+                    GoogleSignInAccount googleSignInAccount = signInAccountTask.getResult(ApiException.class);
+                    // Check condition
+                    if (googleSignInAccount != null) {
+                        // When sign in account is not equal to null, initialize auth credential
+                        AuthCredential authCredential = GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(), null);
+                        // Check credential
+                        mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, task -> {
+                            // Check condition
+                            if (task.isSuccessful()) {
+                                // When task is successful, redirect to profile activity
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            } else {
+                                // Handle authentication failure here
+                                String errorMessage = "Authentication Failed: " + Objects.requireNonNull(task.getException()).getMessage();
+                                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } catch (ApiException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}

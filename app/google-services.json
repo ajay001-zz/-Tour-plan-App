@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "760839529858",
+    "firebase_url": "https://suitcaseapp-b1e02-default-rtdb.firebaseio.com",
+    "project_id": "suitcaseapp-b1e02",
+    "storage_bucket": "suitcaseapp-b1e02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760839529858:android:87626855973f2005f65b9b",
+        "android_client_info": {
+          "package_name": "com.ajay.suitcase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs5CWKrrJxEp6Au7EDsiBDw2e28owvn48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/header"
+        android:foregroundGravity="center"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair"
+            android:paddingStart="16dp"
+            android:text="@string/welcome_user"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/profileImage"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="90dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/profile"
+            android:foregroundGravity="center"
+            android:onClick="showPopupMenu"
+            android:padding="16dp"
+            android:src="@drawable/yourpic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/searchDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:layout_marginTop="8dp"
+        android:paddingStart="16dp"
+        android:text="@string/search_for_your_favorite_items"
+        android:textColor="@color/black"
+        android:alpha="0.6"
+        android:textSize="14sp"
+        tools:ignore="RtlSymmetry" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchDescription"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/swiped_right_background"
+        android:queryHint="Search your items"/>
+
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/playfair"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="@string/categogy"
+        android:layout_below="@id/searchBar"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/categoryCards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/payBox"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_toEndOf="@id/clothingBox"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="15dp"
+                android:background="@color/buttonBackground"
+                app:cardElevation="4dp"
+                android:onClick="showBooks">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/buttonBackground"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/bookIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="@string/books_and_magazines"
+                        android:src="@drawable/book"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/paymentName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/books_and_magazines"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/black"
+                        android:layout_marginTop="1dp" />
+
+                    <TextView
+                        android:id="@+id/totalPaymentMethods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_6_items"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textSize="11sp"
+                        android:textColorHint="@color/black"
+                        android:alpha="0.6"
+                        android:layout_marginTop="1dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/clothingBox"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="15dp"
+                android:background="@color/buttonBackground"
+                app:cardElevation="4dp"
+                android:onClick="showClothing">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/buttonBackground"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/documentIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/laundry"
+                        android:contentDescription="@string/clothing"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/categoryName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/clothing"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/black"
+                        android:layout_marginTop="1dp" />
+
+                    <TextView
+                        android:id="@+id/totalItem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_6_items"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textSize="11sp"
+                        android:textColorHint="@color/black"
+                        android:alpha="0.6"
+                        android:layout_marginTop="1dp" />
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/healthBox"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_toEndOf="@id/payBox"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="15dp"
+                android:background="@color/buttonBackground"
+                app:cardElevation="4dp"
+                android:onClick="showHealth">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/buttonBackground"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/healthIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/health"
+                        android:src="@drawable/healthcare" />
+
+                    <TextView
+                        android:id="@+id/healthItems"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:gravity="center"
+                        android:text="@string/health"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/totalHealthItems"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:alpha="0.6"
+                        android:gravity="center"
+                        android:text="@string/_6_items"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/accessoriesBox"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_toEndOf="@id/healthBox"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="15dp"
+                android:background="@color/buttonBackground"
+                app:cardElevation="4dp"
+                android:onClick="showAccessories">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/buttonBackground"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/accesoriesIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/hair"
+                        android:contentDescription="@string/accessories"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/clothItems"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Accessories"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/black"
+                        android:layout_marginTop="1dp" />
+
+                    <TextView
+                        android:id="@+id/totalClothItems"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_6_items"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textSize="11sp"
+                        android:textColorHint="@color/black"
+                        android:alpha="0.6"
+                        android:layout_marginTop="1dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/electronicBox"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_toEndOf="@id/accessoriesBox"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="15dp"
+                android:background="@color/buttonBackground"
+                app:cardElevation="4dp"
+                android:onClick="showElectronic">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/buttonBackground"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/electronicIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/gadgets"
+                        android:contentDescription="@string/electronic"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/electronicItems"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/electronic"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/black"
+                        android:layout_marginTop="1dp" />
+
+                    <TextView
+                        android:id="@+id/totalelectronicItems"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_6_items"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textSize="11sp"
+                        android:textColorHint="@color/black"
+                        android:alpha="0.6"
+                        android:layout_marginTop="1dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/otherBox"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_toEndOf="@id/electronicBox"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="15dp"
+                android:background="@color/buttonBackground"
+                app:cardElevation="4dp"
+                android:onClick="showOthers">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/buttonBackground"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/otherIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/more"
+                        android:contentDescription="@string/other"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/otherItems"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/other"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/black"
+                        android:layout_marginTop="1dp" />
+
+                    <TextView
+                        android:id="@+id/totalotherItems"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_6_items"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textSize="11sp"
+                        android:textColorHint="@color/black"
+                        android:alpha="0.6"
+                        android:layout_marginTop="1dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/sortItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/categoryCards"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/allItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair"
+            android:text="@string/sort_items"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/sortSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/swiped_right_background"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:contentDescription="@string/button_to_add_items"
+        android:backgroundTint="@color/buttonBackground"
+        app:srcCompat="@drawable/plus" />
+
+    <ProgressBar
+        android:id="@+id/refreshProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminate="true" />
+
+    <View
+        android:id="@+id/dimBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:alpha="0.5"
+        android:visibility="gone" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/sortItems"
+        android:layout_height="match_parent">
+
+        <!-- Your content here, e.g., a RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</RelativeLayout>
